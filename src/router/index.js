@@ -44,19 +44,6 @@ export const constantRoutes = [
     ],
   },
 
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://github.com/thousmile',
-        meta: {
-          title: 'Github',
-          icon: 'link',
-        },
-      },
-    ],
-  },
 
   {
     path: '/login',
@@ -153,16 +140,7 @@ export const asyncRouterMap = [
           resources: 'pre_role',
           title: '角色管理',
         },
-      },
-      {
-        path: 'dept',
-        component: () => import ('@/views/pre/dept/index'),
-        name: 'PreDept',
-        meta: {
-          resources: 'pre_dept',
-          title: '部门管理',
-        },
-      },
+      }
     ],
   },
   {
@@ -192,15 +170,6 @@ export const asyncRouterMap = [
           resources: 'fofa_history',
           title: '查询历史',
         },
-      },
-      {
-        path: 'config',
-        name: 'config',
-        component: () => import ('@/views/fofa/config'),
-        meta: {
-          resources: 'fofa_config',
-          title: 'fofa配置',
-        },
       }
 
     ],
@@ -215,33 +184,7 @@ export const asyncRouterMap = [
       title: '系统设置',
     },
     children: [
-      {
-        path: 'index',
-        component: () => import ('@/views/sys/chinaArea/index'),
-        name: 'SysChinaArea',
-        meta: {
-          resources: 'sys_china_area',
-          title: '行政地区',
-        },
-      },
-      {
-        path: 'dictionary',
-        component: () => import ('@/views/sys/dictionary/index'),
-        name: 'SysDictionary',
-        meta: {
-          resources: 'sys_dictionary',
-          title: '字典集合',
-        },
-      },
-      {
-        path: 'wechat',
-        name: 'SysWechat',
-        component: () => import ('@/views/sys/wechat/index'),
-        meta: {
-          resources: 'sys_wechat',
-          title: '微信设置',
-        },
-      },
+
       {
         path: 'logs',
         name: 'SysLogs',

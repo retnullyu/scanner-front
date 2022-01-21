@@ -90,16 +90,6 @@
                   />
                 </el-select>
               </el-form-item>
-              <el-form-item label="部门" prop="deptId">
-                <el-cascader
-                  v-model="entity.deptId"
-                  :show-all-levels="false"
-                  :options="deptTree"
-                  clearable
-                  filterable
-                  :props="cascaderProps"
-                />
-              </el-form-item>
               <el-form-item label="状态" prop="status">
                 <el-select
                   v-model="entity.status"
@@ -160,9 +150,9 @@
           <template slot-scope="scope">
             <div
               class="avatar-wrapper"
-              @click="viewBigAvatar(scope.row.avatar)"
+              @click="viewBigAvatar(process.env.VUE_APP_BASE_API+'/'+scope.row.avatar)"
             >
-              <img :src="scope.row.avatar" class="user-avatar" />
+              <img :src="getImagURL(scope.row.avatar)" class="user-avatar" />
             </div>
           </template>
         </el-table-column>
@@ -190,11 +180,6 @@
             >
               <el-tag type="success">{{ role.roleName }}</el-tag>
             </el-tooltip>
-          </template>
-        </el-table-column>
-        <el-table-column label="所在部门" width="100">
-          <template slot-scope="scope">
-            <el-tag>{{ scope.row.departmentName }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="状态" width="70">
@@ -263,7 +248,6 @@ import {
   updateUserRoles,
   resetPassword
 } from '@/api/sysUser'
-import { getDeptTree } from '@/api/sysDept'
 import { getRoleAll } from '@/api/sysRole'
 import {
   validateEmail,
@@ -297,7 +281,6 @@ export default {
         gender: '', // 性别
         birthday: '', // 生日
         status: 0, // 状态
-        deptId: 0, // 部门ID
         roles: [] // 角色列表
       },
       dialog: {
@@ -357,15 +340,12 @@ export default {
         birthday: [
           { required: true, message: '生日必须选择~', trigger: 'blur' }
         ],
-        status: [{ required: true, message: '状态必须选择~', trigger: 'blur' }],
-        deptId: [{ required: true, message: '部门必须选择~', trigger: 'blur' }]
+        status: [{ required: true, message: '状态必须选择~', trigger: 'blur' }]
       }
     }
   },
   created() {
     this.getUserTableData()
-    this.getDeptListData()
-    console.log("xxxx")
   },
   methods: {
     getUserTableData() {
@@ -374,15 +354,6 @@ export default {
       getUserPage(_this.page).then((result) => {
         _this.tableData = result.list
         _this.page.total = result.total
-        _this.loading = false
-      })
-    },
-    getDeptListData() {
-      // 获取部门列表
-      const _this = this
-      _this.loading = true
-      getDeptTree().then((result) => {
-        _this.deptTree = result
         _this.loading = false
       })
     },
@@ -453,7 +424,8 @@ export default {
     },
     getAvatar(data) {
       // 获取上传头像的值
-      this.entity.avatar = data
+      // this.entity.avatar = process.env.VUE_APP_BASE_API+"/"+data
+      console.log(data,this.entity.avatar)
     },
     emptyEntity() {
       // 清空用户信息
@@ -467,7 +439,6 @@ export default {
         gender: '', // 性别
         birthday: '', // 生日
         status: '', // 状态
-        deptId: '', // 部门ID
         roles: [] // 角色列表
       }
     },
@@ -496,7 +467,6 @@ export default {
         gender: data.gender, // 性别
         birthday: data.birthday, // 生日
         status: data.status, // 状态
-        deptId: data.deptId, // 部门ID
         roles: data.roles // 角色列表
       }
       this.dialog = {
@@ -565,6 +535,9 @@ export default {
           done()
         })
         .catch((_) => {})
+    },
+    getImagURL(data){
+      return process.env.VUE_APP_BASE_API+'/'+data
     },
     saveAndFlush() {
       const _this = this

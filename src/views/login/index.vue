@@ -8,6 +8,7 @@
       auto-complete="on"
       label-position="left"
     >
+      <h3 class="login_title">retnullの武器库</h3>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -58,8 +59,17 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-tooltip content="[ 点击 ] 刷新验证码" placement="right" effect="light">
-            <el-image :src="codeUrl" style="cursor:pointer;border-radius: 5px;" fit="fit" @click="changeImageCode">
+          <el-tooltip
+            content="[ 点击 ] 刷新验证码"
+            placement="right"
+            effect="light"
+          >
+            <el-image
+              :src="codeUrl"
+              style="cursor: pointer; border-radius: 5px"
+              fit="fit"
+              @click="changeImageCode"
+            >
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline" />
               </div>
@@ -72,136 +82,138 @@
         <el-button
           :loading="loading"
           type="primary"
-          style="width:100%;"
+          style="width: 100%"
           @click.native.prevent="handleLogin"
-        >登录</el-button>
+          >登录</el-button
+        >
       </el-form-item>
 
-      <div class="tips">
-        <span style="margin-right:20px;">用户名:&nbsp;&nbsp;&nbsp; {{ loginForm.username }}</span><br><br>
-        <span>密码: &nbsp;&nbsp;&nbsp; {{ loginForm.password }}</span>
-      </div>
     </el-form>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error('用户名不能小于5位'))
+      if (value.length < 2) {
+        callback(new Error("用户名不能小于2位"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     const validatePass = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
+      if (value.length < 4) {
+        callback(new Error("密码不能小于5位"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     const validateCodeText = (rule, value, callback) => {
       if (value.length !== 4) {
-        callback(new Error('验证码只能是4位'))
+        callback(new Error("验证码只能是4位"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
       loginForm: {
-        username: 'root_admin',
-        password: 'root_admin',
-        codeKey: '',
-        codeText: ''
+        username: "",
+        password: "",
+        codeKey: "",
+        codeText: "",
       },
-      codeUrl: '',
+      codeUrl: "",
       loginRules: {
         username: [
-          { required: true, trigger: 'blur', validator: validateUsername }
+          { required: true, trigger: "blur", validator: validateUsername },
         ],
         password: [
-          { required: true, trigger: 'blur', validator: validatePass }
+          { required: true, trigger: "blur", validator: validatePass },
         ],
         codeText: [
-          { required: true, trigger: 'blur', validator: validateCodeText }
-        ]
+          { required: true, trigger: "blur", validator: validateCodeText },
+        ],
       },
       loading: false,
-      pwdType: 'password',
-      redirect: undefined
-    }
+      pwdType: "password",
+      redirect: undefined,
+    };
   },
   watch: {
     $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
+      handler: function (route) {
+        this.redirect = route.query && route.query.redirect;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   created() {
-    this.randomCodeKey()
-    this.changeImageCode()
+    this.randomCodeKey();
+    this.changeImageCode();
   },
   methods: {
     // 显示密码
     showPwd() {
-      if (this.pwdType === 'password') {
-        this.pwdType = ''
+      if (this.pwdType === "password") {
+        this.pwdType = "";
       } else {
-        this.pwdType = 'password'
+        this.pwdType = "password";
       }
     },
     // 登录
     handleLogin() {
-      const _this = this
-      _this.$refs.loginForm.validate(valid => {
+      const _this = this;
+      _this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          _this.loading = true
+          _this.loading = true;
           _this.$store
-            .dispatch('Login', this.loginForm)
+            .dispatch("Login", this.loginForm)
             .then(() => {
-              _this.loading = false
-              _this.$router.push({ path: this.redirect || '/dashboard' })
+              _this.loading = false;
+              _this.$router.push({ path: this.redirect || "/dashboard" });
             })
             .catch((msg) => {
-              _this.loading = false
-            })
+              this.randomCodeKey();
+              this.changeImageCode();
+              _this.loading = false;
+            });
         } else {
-          console.log('error submit!!')
-          return false
+          this.randomCodeKey();
+          this.changeImageCode();
+
+          console.log("error submit!!");
+          return false;
         }
-      })
+      });
     },
     changeImageCode() {
       var arr = [
         process.env.VUE_APP_BASE_API,
-        '/auth/verify/code',
-        '/',
+        "/auth/verify/code",
+        "/",
         this.loginForm.codeKey,
-        '?r=',
-        Math.ceil(Math.random() * 100)
-      ]
-      var str = arr.join('')
-      this.codeUrl = str
+        "?r=",
+        Math.ceil(Math.random() * 100),
+      ];
+      var str = arr.join("");
+      this.codeUrl = str;
     },
     // 随机 生成 18位 字符串
     randomCodeKey() {
-      var s = []
-      var hexDigits = '0123456789abcdefghijklmnopqrstuvwxyz'
+      var s = [];
+      var hexDigits = "0123456789abcdefghijklmnopqrstuvwxyz";
       for (var i = 0; i < 24; i++) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
       }
-      s[14] = '4' // bits 12-15 of the time_hi_and_version field to 0010
-      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1) // bits 6-7 of the clock_seq_hi_and_reserved to 01
-      var uuid = s.join('')
-      this.loginForm.codeKey = uuid
-    }
-  }
-}
+      s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+      var uuid = s.join("");
+      this.loginForm.codeKey = uuid;
+    },
+  },
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
@@ -214,6 +226,7 @@ $light_gray: #eee;
     display: inline-block;
     height: 47px;
     width: 85%;
+    font-size: 20px !important;
     input {
       background: transparent;
       border: 0px;
@@ -237,14 +250,14 @@ $light_gray: #eee;
 </style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-$bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 .login-container {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-size: cover;
+  background: url("../../assets/images/198979.jpg") center center no-repeat;
   .login-form {
     position: absolute;
     left: 0;
@@ -279,6 +292,9 @@ $light_gray: #eee;
     text-align: center;
     font-weight: bold;
   }
+  .el-textarea__inner {
+    font-size: 20px;
+  }
   .show-pwd {
     position: absolute;
     right: 10px;
@@ -287,6 +303,22 @@ $light_gray: #eee;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+  .login_title {
+    // margin: 0px auto 40px auto;
+    // text-align: center;
+    // color: #29e05d;
+    // background: hsl(0, 50%, 45%);
+    padding: 20px;
+    font: 300%/1 Rockwell, serif;
+    font-weight: bold;
+    display: block;
+    width: 500px;
+    height: 80px;
+    // color: white;
+    color: rgba(224, 70, 27, 0.5);
+    text-shadow: 1px 1px black, 2px 2px black, 3px 3px black, 4px 4px black,
+      5px 5px black, 6px 6px black, 7px 7px black, 8px 8px black;
   }
 }
 </style>

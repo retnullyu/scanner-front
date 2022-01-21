@@ -23,10 +23,6 @@
               <div class="pull-right">{{ entity.email }}</div>
             </li>
             <li class="list-group-item">
-              <svg-icon icon-class="department" />所属部门
-              <div class="pull-right">{{ userinfo.departmentName }}</div>
-            </li>
-            <li class="list-group-item">
               <svg-icon icon-class="pre_role" />所属角色
               <div class="pull-right">
                 <el-tag
@@ -56,9 +52,10 @@
               <el-form
                 ref="entity"
                 :model="entity"
-                :rules="rules"
+                
                 label-width="80px"
               >
+              <!-- :rules="rules" -->
                 <el-form-item label="用户名" prop="username">
                   <el-input v-model="entity.username" clearable />
                 </el-form-item>
@@ -93,9 +90,10 @@
               <el-form
                 ref="updatePwd"
                 :model="updatePwd"
-                :rules="updatePwdRules"
+               
                 label-width="80px"
               >
+               <!-- :rules="updatePwdRules" -->
                 <el-form-item label="旧密码" prop="oldPwd">
                   <el-input
                     v-model="updatePwd.oldPwd"
@@ -310,7 +308,6 @@ export default {
         })
         .then(() => {
           delete _this.entity.roles
-          delete _this.entity.departmentName
           _this.$refs.entity.validate((valid) => {
             if (valid) {
               if (_this.entity.uid !== '') {
