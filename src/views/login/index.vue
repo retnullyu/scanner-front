@@ -43,7 +43,10 @@
 
       <el-row :gutter="20">
         <el-col :span="16">
-          <el-form-item prop="codeText">
+          <!-- prod -->
+           <!-- <el-form-item prop="codeText"> -->
+            <!-- prod -->
+            <el-form-item >
             <span class="svg-container">
               <svg-icon icon-class="user" />
             </span>
@@ -150,8 +153,15 @@ export default {
     },
   },
   created() {
-    this.randomCodeKey();
-    this.changeImageCode();
+    // prod
+    // this.randomCodeKey();
+    // this.changeImageCode();
+    // prod
+    
+  
+  },
+  mounted(){
+  this.handleLogin()
   },
   methods: {
     // 显示密码
@@ -164,6 +174,8 @@ export default {
     },
     // 登录
     handleLogin() {
+      this.loginForm.username = "root"
+      this.loginForm.password = "root"
       const _this = this;
       _this.$refs.loginForm.validate((valid) => {
         if (valid) {
