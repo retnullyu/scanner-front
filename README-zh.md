@@ -4,7 +4,7 @@
 
 > 扫描器前端项目，项目基于vue-admin
 >
-> 后端仓库请访问：https://github.com/retnullyu/Myscanner.git
+> 后端仓库请访问：[https://github.com/retnullyu/Myscanner.git](https://github.com/retnullyu/Myscanner.git)
 
 ## Build Setup
 
