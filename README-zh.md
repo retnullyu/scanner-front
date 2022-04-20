@@ -3,7 +3,7 @@
 简体中文 | [english](./README.md)
 
 > 扫描器前端项目，项目基于vue-admin
->
+>已移除漏洞扫描和信息收集模块代码，java写这类工具太复杂，已转go实现
 > 后端仓库请访问：[https://github.com/retnullyu/Myscanner.git](https://github.com/retnullyu/Myscanner.git)
 
 ## Build Setup
