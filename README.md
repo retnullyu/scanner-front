@@ -2,7 +2,7 @@
 
 English | [简体中文](./README-zh.md)
 
-> Scanner front-end project, project based on vue-admin。
+> Scanner front project, project based on vue-admin。
 >
 > this is fronend rep，Please visit [https://github.com/retnullyu/Myscanner.git](https://github.com/retnullyu/Myscanner.git)
 
