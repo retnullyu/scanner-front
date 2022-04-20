@@ -89,77 +89,77 @@ export const constantRoutes = [
       },
     ],
   },
-  {
-    path: '/information',
-    name: 'information',
-    component: Layout,
-    redirect: '/information/directory',
-    meta: {
-      resources: 'fofa_history',
-      title: '敏感信息收集',
-    },
-    children: [
-      {
-        path: 'directory',
-        name: 'directory',
-        component: () => import ('@/views/information/directory'),
-        meta: {
-          resources: 'fofa_history',
-          title: '目录扫描',
-        },
-      },
-      {
-        path: 'subdomain',
-        name: 'subdomain',
-        component: () => import ('@/views/information/subdomain'),
-        meta: {
-          resources: 'fofa_history',
-          title: '子域名爆破',
-        },
-      },
-      {
-        path: 'port',
-        name: 'port',
-        component: () => import ('@/views/information/port'),
-        meta: {
-          resources: 'fofa_history',
-          title: '端口扫描',
-        },
-      }
+  // {
+  //   path: '/information',
+  //   name: 'information',
+  //   component: Layout,
+  //   redirect: '/information/directory',
+  //   meta: {
+  //     resources: 'fofa_history',
+  //     title: '敏感信息收集',
+  //   },
+  //   children: [
+  //     {
+  //       path: 'directory',
+  //       name: 'directory',
+  //       component: () => import ('@/views/information/directory'),
+  //       meta: {
+  //         resources: 'fofa_history',
+  //         title: '目录扫描',
+  //       },
+  //     },
+  //     {
+  //       path: 'subdomain',
+  //       name: 'subdomain',
+  //       component: () => import ('@/views/information/subdomain'),
+  //       meta: {
+  //         resources: 'fofa_history',
+  //         title: '子域名爆破',
+  //       },
+  //     },
+  //     {
+  //       path: 'port',
+  //       name: 'port',
+  //       component: () => import ('@/views/information/port'),
+  //       meta: {
+  //         resources: 'fofa_history',
+  //         title: '端口扫描',
+  //       },
+  //     }
 
-    ],
-  },
-  {
-    path: '/vuln',
-    name: 'vuln',
-    component: Layout,
-    redirect: '/vuln/json',
-    meta: {
-      resources: 'fofa_history',
-      title: '漏洞扫描',
-    },
-    children: [
+  //   ],
+  // },
+  // {
+  //   path: '/vuln',
+  //   name: 'vuln',
+  //   component: Layout,
+  //   redirect: '/vuln/json',
+  //   meta: {
+  //     resources: 'fofa_history',
+  //     title: '漏洞扫描',
+  //   },
+  //   children: [
 
-      {
-        path: 'vuln',
-        name: 'vuln',
-        component: () => import ('@/views/vuln/json'),
-        meta: {
-          resources: 'fofa_history',
-          title: '简单漏洞扫描',
-        },
-      },
-      {
-        path: 'weakpass',
-        name: 'weakpass',
-        component: () => import ('@/views/vuln/weakpass'),
-        meta: {
-          resources: 'fofa_history',
-          title: '弱口令探测',
-        },
-      },
-    ],
-  },
+  //     {
+  //       path: 'vuln',
+  //       name: 'vuln',
+  //       component: () => import ('@/views/vuln/json'),
+  //       meta: {
+  //         resources: 'fofa_history',
+  //         title: '简单漏洞扫描',
+  //       },
+  //     },
+  //     {
+  //       path: 'weakpass',
+  //       name: 'weakpass',
+  //       component: () => import ('@/views/vuln/weakpass'),
+  //       meta: {
+  //         resources: 'fofa_history',
+  //         title: '弱口令探测',
+  //       },
+  //     },
+  //   ],
+  // },
   
 
   // 404 page must be placed at the end !!!
